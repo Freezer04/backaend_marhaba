@@ -14,19 +14,15 @@ const AnnonceSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  price:{
+    type:Number,
+  },
+  
   date:{
     type:Date,
     default:Date.now
-  },
-
-  id_user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
-  id_repas: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Repas",
   }
+
 });
 
 // creating the model booking
