@@ -10,6 +10,8 @@ require("./config/mongoose")
 
 //Import Routes
 const authRoute = require('./routes/authRoute')
+const annonceRoute = require('./routes/annonceRoute');
+const repasRoute = require('./routes/repasRoute');
 
 
 //Middleware
@@ -19,7 +21,9 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 
 //Route Middlewares
-app.use('/api/auth', authRoute)
+app.use('/api/auth', authRoute);
+app.use('/api/annonce',annonceRoute);
+app.use('/api/repas', repasRoute);
 
 
 //Home Page
