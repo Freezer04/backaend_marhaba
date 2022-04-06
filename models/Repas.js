@@ -22,10 +22,10 @@ const RepasSchema = new mongoose.Schema({
     type:String
   }],
 
-  id_typeRepas: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "TypeRepas",
-  }
+ type:{
+   type:String,
+   enum:["entrer","principal","dessert"]
+ }
 });
 
 // creating the model Repas
