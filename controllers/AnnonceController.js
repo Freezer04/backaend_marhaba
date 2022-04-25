@@ -16,6 +16,18 @@ const createAnnouncement = async (req,res) => {
 }
 
 
+//Get Annonce by Id 
+const getAnnouncementsbyid = async (req,res) => {
+  const idAnnonce = req.params.idAnnonce
+  const annonceId = await Annonce.findById(idAnnonce)
+  try{
+    res.json(annonceId);
+  }catch(err){
+    res.status(400).json({error:err.message})
+  }
+}
+
+
 //Get All Annonce
 const getAnnouncements = async (req,res) => {
   const annonce = await  Annonce.find()
@@ -27,22 +39,11 @@ const getAnnouncements = async (req,res) => {
   }
 }
 
-
 // Update Annonce
-const updateAnnouncement = async (req,res) => {
-  const idAnnonce = req.params.idAnnonce;
-  try{
-  Annonce.findByIdAndUpdate(idAnnonce, req.body.data, (err, result) => {
-    if (err) {
-      res.status(400).json(err);
-    } else {
-      res.status(200).json(result);
-    }
-  });
-} catch (error) {
-  res.status(400).json({ error: error.message });
-}
-
+const updateAnnouncement = async (req, res) => {
+  const {title,descreption,price}=req.body
+  const updateannonce = await Annonce.findByIdAndUpdate({ _id: req.params.idAnnonce },{title,descreption,price} ,{ new: true })
+  res.json({updateannonce});
 }
 
 //Delete Annoonce
@@ -64,5 +65,6 @@ module.exports = {
     createAnnouncement,
     getAnnouncements,
     updateAnnouncement,
-    deleteAnnouncement
+    deleteAnnouncement,
+    getAnnouncementsbyid
 }
