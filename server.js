@@ -5,6 +5,10 @@ const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 8000;
 const app = express();
 
+
+//Send Mail on gmail
+require("./nodemailer/sendMail")
+
 //requiring mongoose
 require("./config/mongoose")
 
@@ -12,6 +16,9 @@ require("./config/mongoose")
 const authRoute = require('./routes/authRoute')
 const annonceRoute = require('./routes/annonceRoute');
 const repasRoute = require('./routes/repasRoute');
+const repascmdRoute = require('./routes/repascmdRoute');
+const factureRoute  = require("./routes/factureRoute");
+const commnadglob = require("./routes/cmdglobalRoute");
 
 
 //Middleware
@@ -24,6 +31,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api/auth', authRoute);
 app.use('/api/annonce',annonceRoute);
 app.use('/api/repas', repasRoute);
+app.use('/api/repascmd', repascmdRoute);
+app.use('/api/facture',factureRoute);
+app.use('/api/commandglobal',commnadglob)
 
 
 //Home Page
@@ -32,6 +42,7 @@ app.get("/", (req, res) => {
     message: "Wellcome !!",
   });
 })
+
 
 
 app.listen(PORT, () =>
