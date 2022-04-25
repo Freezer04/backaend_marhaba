@@ -6,13 +6,14 @@ const Annonce = require("../controllers/AnnonceController")
 
 router
     .route("/")
-    .get(verify,Annonce.getAnnouncements)
-    .post(verify,Annonce.createAnnouncement);
+    .get(Annonce.getAnnouncements)
+    .post(Annonce.createAnnouncement);
 
     router 
     .route("/:idAnnonce")
-    .put(verify,Annonce.updateAnnouncement)
-    .delete(verify,Annonce.deleteAnnouncement)
+    .get(Annonce.getAnnouncementsbyid)
+    .put(Annonce.updateAnnouncement)
+    .delete(Annonce.deleteAnnouncement)
 
 
 module.exports = router;
