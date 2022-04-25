@@ -25,36 +25,40 @@ const getRepas = async (req,res) => {
     res.status(400).json({error:error.message});
 }
 }
+
+//Get Repas by Id
+const getRepasbyid = async (req,res) => {
+  const id = req.params.id
+  const repasid = await Repas.findById(id)
+  try{
+    res.json(repasid);
+  }catch(err){
+    res.status(400).json({error:err.message})
+  }
+}
 const orderRepas = (req,res) => {}
 
-const searchForRepas = (req,res) => {}
+const searchForRepas = async(req,res) => {
+  try {
+    const repasbyname = await Repas.find({ title: req.body.title }).exec();
+    if (!repasbyname) res.status(404).json({ message: "not hotel found" });
+    res.status(200).json(repasbyname);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
 
 const getRecommendedRepas = (req,res) => {}
 
 const getCount = (req,res) => {}
 
-//Update Repas
-// const updateRepas = async (req,res) => {
-//   const idRepas = req.params.idrepas;
-//   console.log(idRepas);
-//   try{
-//    Repas.findByIdAndUpdate(idRepas, req.body.data, (err, result) => {
-//     if (err) {
-//       res.status(400).json(err);
-//     } else {
-//       res.status(200).json(result);
-//     }
-//   });
-// } catch (error) {
-//   res.status(400).json({ error: error.message });
-// }
-// }
 
+
+//Update Repas
 const updateRepas = async (req, res) => {
-  let data = req.body;
-  const roomUpdate = await Repas.findByIdAndUpdate({ _id: req.params.id }, data)
-  res.json({roomUpdate});
-  console.log(roomUpdate);
+  const {title,descreption,price,image,type}=req.body
+  const upadaterepas = await Repas.findByIdAndUpdate({ _id: req.params.id },{title,descreption,price,image,type} ,{ new: true })
+  res.json({upadaterepas});
 }
 
 
@@ -81,5 +85,6 @@ module.exports = {
     getRecommendedRepas,
     getCount,
     updateRepas,
-    deleteRepas
+    deleteRepas,
+    getRepasbyid
 }
