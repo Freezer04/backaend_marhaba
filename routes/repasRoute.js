@@ -28,6 +28,7 @@ router
 
 router 
     .route("/:id")
+    .get(Repas.getRepasbyid)
     .put(Repas.updateRepas)
     .delete(Repas.deleteRepas);
 
